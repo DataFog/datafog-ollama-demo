@@ -1,0 +1,2 @@
+streamlit==1.31.1
+datafog-instructor==0.1.0b8
