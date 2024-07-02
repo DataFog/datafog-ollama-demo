@@ -3,6 +3,7 @@ import json
 from datafog_instructor import DataFog
 from datafog_instructor.models import EntityType
 
+            
 # Initialize DataFog
 datafog = DataFog()
 
@@ -18,7 +19,7 @@ def map_entity_type(entity_type: str) -> str:
         # If no match is found, default to ORG
         return EntityType.ORG.value
 
-st.title("DataFog Demo using Ollama and Microsoft Phi-3")
+st.title("PII Detection using Ollama and Microsoft Phi-3")
 
 st.write("""
 This demo showcases the named entity recognition capabilities of the DataFog Instructor SDK using Ollama and Microsoft Phi-3 for custom entity detection.
@@ -68,11 +69,14 @@ new_description = st.sidebar.text_input("Entity Type Description")
 if st.sidebar.button("Add Entity Type"):
     if new_type and new_description:
         datafog.add_entity_type(new_type, new_description)
+        posthog.capture('add_entity_type_success', {'entity_added': 'True'})
         st.sidebar.success(f"Added new entity type: {new_type}")
     else:
         st.sidebar.warning("Please provide both name and description.")
+        posthog.capture('add_entity_type_failure', {'entity_added': 'False'})
 
 # Footer
 st.markdown("---")
 st.markdown("Powered by [DataFog Instructor](https://github.com/datafog/datafog-instructor)")
 st.markdown("Run this demo locally by cloning and running [DataFog Demo](https://github.com/datafog/datafog-demo)")
+st.markdown("For any questions, please contact [sid@datafog.ai](mailto:sid@datafog.ai).")
