@@ -23,7 +23,7 @@ This repository contains a demonstration of the DataFog Instructor SDK using Oll
 
 3. Run the Docker container:
    ```
-   docker run -p 8501:8501 datafog-demo
+   docker run --memory=30g --cpus=3.5 -p 8501:8501 -p 11434:11434 datafog-demo
    ```
 
 4. Open your web browser and navigate to `http://localhost:8501` to access the demo.
